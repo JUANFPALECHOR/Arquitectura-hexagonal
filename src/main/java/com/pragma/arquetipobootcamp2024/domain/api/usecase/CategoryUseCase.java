@@ -2,9 +2,12 @@ package com.pragma.arquetipobootcamp2024.domain.api.usecase;
 
 import com.pragma.arquetipobootcamp2024.domain.model.Category;
 import com.pragma.arquetipobootcamp2024.domain.spi.ICategoryRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+
+@Service
 public class CategoryUseCase {
 
     private final ICategoryRepository categoryRepository;
