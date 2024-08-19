@@ -17,8 +17,10 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createCategory(@RequestBody Category category) {
+    public ResponseEntity<String> createCategory(@RequestBody Category category) {
         categoryUseCase.createCategory(category);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("SIUUUUUUUUUUUUUUU", HttpStatus.CREATED);
     }
+
+
 }

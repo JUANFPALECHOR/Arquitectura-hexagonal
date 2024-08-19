@@ -36,4 +36,5 @@ public class CategoryUseCase {
             throw new IllegalArgumentException("El nombre y la descripción no pueden estar vacíos.");
         }
     }
+
 }

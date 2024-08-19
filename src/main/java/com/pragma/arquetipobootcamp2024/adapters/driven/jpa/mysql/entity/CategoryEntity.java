@@ -1,7 +1,11 @@
 package com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+
+@Data
 @Entity
 @Table(name = "categories")
 public class CategoryEntity {
@@ -13,8 +17,8 @@ public class CategoryEntity {
     @Column(nullable = false, unique = true, length = 50)
     private String name;
 
-    @Column(nullable = false, length = 90)
+    @Column(nullable = true, length = 90)
     private String description;
 
-    // Getters y setters
+
 }
