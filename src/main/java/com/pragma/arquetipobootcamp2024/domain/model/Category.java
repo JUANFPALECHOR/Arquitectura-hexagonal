@@ -15,6 +15,6 @@ public class Category {
     private String name;
     private String description;
 
-
+    // Business rules, validations, etc.
     }
 
