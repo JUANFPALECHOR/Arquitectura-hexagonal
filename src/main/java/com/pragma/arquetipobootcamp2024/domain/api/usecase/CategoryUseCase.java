@@ -6,16 +6,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+// It is the class responsible for applying the business rules
+// class that is responsible for doing the work that your application needs, such as creating a category, following the necessary rules.
 
-@Service
+@Service // indicates that this class is a service
 public class CategoryUseCase {
 
     private final ICategoryRepository categoryRepository;
 
+    // builder
     public CategoryUseCase(ICategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
+    //This method is responsible for creating a new category.
     public void createCategory(Category category) {
         validateCategory(category);
         Optional<Category> existingCategory = categoryRepository.findByName(category.getName());
@@ -24,7 +28,7 @@ public class CategoryUseCase {
         }
         categoryRepository.save(category);
     }
-
+    // This method verifies that the category being created follows the business rules.
     private void validateCategory(Category category) {
         if (category.getName().length() > 50) {
             throw new IllegalArgumentException("El tamaño máximo del nombre debe ser de 50 caracteres.");
