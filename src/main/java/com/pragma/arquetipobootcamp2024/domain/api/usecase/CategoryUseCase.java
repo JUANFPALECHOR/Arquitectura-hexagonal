@@ -2,7 +2,13 @@ package com.pragma.arquetipobootcamp2024.domain.api.usecase;
 
 import com.pragma.arquetipobootcamp2024.domain.model.Category;
 import com.pragma.arquetipobootcamp2024.domain.spi.ICategoryRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+
+
 
 import java.util.Optional;
 
@@ -40,5 +46,11 @@ public class CategoryUseCase {
             throw new IllegalArgumentException("El nombre y la descripción no pueden estar vacíos.");
         }
     }
+
+    public Page<Category> listCategories(int page, int size, String sortDirection) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), "name"));
+        return categoryRepository.findAll(pageable).map(categoryEntityMapper::toDomain);
+    }
+
 
 }
