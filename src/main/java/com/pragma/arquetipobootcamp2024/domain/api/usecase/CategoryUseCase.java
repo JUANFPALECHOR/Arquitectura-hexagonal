@@ -1,5 +1,6 @@
 package com.pragma.arquetipobootcamp2024.domain.api.usecase;
 
+import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;
 import com.pragma.arquetipobootcamp2024.domain.model.Category;
 import com.pragma.arquetipobootcamp2024.domain.spi.ICategoryRepository;
 import org.springframework.data.domain.Page;
@@ -8,24 +9,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 
-
-
 import java.util.Optional;
-
-// It is the class responsible for applying the business rules
-// class that is responsible for doing the work that your application needs, such as creating a category, following the necessary rules.
 
 @Service // indicates that this class is a service
 public class CategoryUseCase {
 
     private final ICategoryRepository categoryRepository;
+    private final ICategoryEntityMapper categoryEntityMapper;
 
-    // builder
-    public CategoryUseCase(ICategoryRepository categoryRepository) {
+    public CategoryUseCase(ICategoryRepository categoryRepository, ICategoryEntityMapper categoryEntityMapper) {
         this.categoryRepository = categoryRepository;
+        this.categoryEntityMapper = categoryEntityMapper;
     }
 
-    //This method is responsible for creating a new category.
+    // This method is responsible for creating a new category.
     public void createCategory(Category category) {
         validateCategory(category);
         Optional<Category> existingCategory = categoryRepository.findByName(category.getName());
@@ -34,6 +31,7 @@ public class CategoryUseCase {
         }
         categoryRepository.save(category);
     }
+
     // This method verifies that the category being created follows the business rules.
     private void validateCategory(Category category) {
         if (category.getName().length() > 50) {
@@ -47,10 +45,10 @@ public class CategoryUseCase {
         }
     }
 
+    // List categories with pagination and sorting
     public Page<Category> listCategories(int page, int size, String sortDirection) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), "name"));
-        return categoryRepository.findAll(pageable).map(categoryEntityMapper::toDomain);
+        return categoryRepository.findAll(pageable);
     }
-
 
 }

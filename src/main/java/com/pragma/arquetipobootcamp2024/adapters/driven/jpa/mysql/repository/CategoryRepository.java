@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
 
 
 //JPA (a framework for interacting with databases)
@@ -15,7 +16,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 // like save(), findById(), deleteById(), etc., to use in CategoryEntity
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
-    Page<CategoryEntity> findAll(Pageable pageable); //search a category by name
+    Optional<CategoryEntity> findByName(String name);//search a category by name
+    Page<CategoryEntity> findAll(Pageable pageable);
 }
 
 

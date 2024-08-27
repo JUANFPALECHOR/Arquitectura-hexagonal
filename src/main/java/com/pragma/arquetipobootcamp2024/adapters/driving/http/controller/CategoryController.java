@@ -2,6 +2,7 @@ package com.pragma.arquetipobootcamp2024.adapters.driving.http.controller;
 
 import com.pragma.arquetipobootcamp2024.domain.api.usecase.CategoryUseCase;
 import com.pragma.arquetipobootcamp2024.domain.model.Category;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,13 @@ public class CategoryController {
     public ResponseEntity<String> createCategory(@RequestBody Category category) {
         categoryUseCase.createCategory(category); //Call categoryUseCase Pass the category object received from the client to the createCategory method where the category is validated and saved in the database
         return new ResponseEntity<>("SIUUUUUUUUUUUUUUU", HttpStatus.CREATED);
+    }
+
+    public Page<Category> listCategories(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "ASC") String sortDirection) {
+        return categoryUseCase.listCategories(page, size, sortDirection);
     }
 
 
