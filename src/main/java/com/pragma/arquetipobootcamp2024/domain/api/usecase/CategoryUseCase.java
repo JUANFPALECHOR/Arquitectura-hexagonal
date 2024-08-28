@@ -48,6 +48,7 @@ public class CategoryUseCase {
     // List categories with pagination and sorting
     public Page<Category> listCategories(int page, int size, String sortDirection) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), "name"));
+        System.out.println("Applying sort direction: " + sortDirection);
         return categoryRepository.findAll(pageable);
     }
 

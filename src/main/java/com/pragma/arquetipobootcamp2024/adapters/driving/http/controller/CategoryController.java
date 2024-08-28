@@ -40,11 +40,15 @@ public class CategoryController {
         return new ResponseEntity<>("SIUUUUUUUUUUUUUUU", HttpStatus.CREATED);
     }
 
-    public Page<Category> listCategories(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "ASC") String sortDirection) {
-        return categoryUseCase.listCategories(page, size, sortDirection);
+    // ResponseEntity Used to return HTTP responses
+    @GetMapping// this method used to map HTTP GET requests
+    public ResponseEntity<Page<Category>> listCategories( // allows you to return the categories in paginated form,
+            @RequestParam(defaultValue = "0") int page, // example = User wants to see second page of results
+            @RequestParam(defaultValue = "10") int size, // The user wants to see 5 products per page
+            @RequestParam(defaultValue = "ASC") String sortDirection) { // The user wants the products to be ordered in descending order (from Z to A).
+        System.out.println("Sort Direction: " + sortDirection);
+        Page<Category> categories = categoryUseCase.listCategories(page, size, sortDirection);
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
 
