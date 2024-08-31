@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.Optional;
 
+import static com.pragma.arquetipobootcamp2024.domain.util.DomainConstants.*;
+
 @Service // indicates that this class is a service
 public class CategoryUseCase {
 
@@ -27,7 +29,7 @@ public class CategoryUseCase {
         validateCategory(category);
         Optional<Category> existingCategory = categoryRepository.findByName(category.getName());
         if (existingCategory.isPresent()) {
-            throw new IllegalArgumentException("El nombre de la categoría ya existe.");
+            throw new IllegalArgumentException(ERROR_CATEGORY_NAME_EXISTS);
         }
         categoryRepository.save(category);
     }
@@ -35,13 +37,13 @@ public class CategoryUseCase {
     // This method verifies that the category being created follows the business rules.
     private void validateCategory(Category category) {
         if (category.getName().length() > 50) {
-            throw new IllegalArgumentException("El tamaño máximo del nombre debe ser de 50 caracteres.");
+            throw new IllegalArgumentException(ERROR_CATEGORY_NAME_MAX_LENGTH);
         }
         if (category.getDescription().length() > 90) {
-            throw new IllegalArgumentException("El tamaño máximo de la descripción debe ser de 90 caracteres.");
+            throw new IllegalArgumentException(ERROR_CATEGORY_DESCRIPTION_MAX_LENGTH);
         }
         if (category.getName().isEmpty() || category.getDescription().isEmpty()) {
-            throw new IllegalArgumentException("El nombre y la descripción no pueden estar vacíos.");
+            throw new IllegalArgumentException(ERROR_CATEGORY_FIELDS_EMPTY);
         }
     }
 
