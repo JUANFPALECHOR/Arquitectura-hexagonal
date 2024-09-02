@@ -1,7 +1,10 @@
 package com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.mapper;
 
+import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.request.CategoryRequest;
+import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.response.CategoryResponse;
 import com.pragma.arquetipobootcamp2024.domain.model.Category;
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.entity.CategoryEntity;
+
 import org.mapstruct.Mapper;
 
 /*
@@ -23,4 +26,6 @@ Simply put, the mapper makes sure that both the domain (which contains the busin
 public interface ICategoryEntityMapper {
     CategoryEntity toEntity(Category category);
     Category toDomain(CategoryEntity categoryEntity);
+    Category toDomain(CategoryRequest categoryRequest);
+    CategoryResponse toResponse(Category category);
 }
