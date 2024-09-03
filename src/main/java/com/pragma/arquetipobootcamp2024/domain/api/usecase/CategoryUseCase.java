@@ -17,11 +17,10 @@ import static com.pragma.arquetipobootcamp2024.domain.util.DomainConstants.*;
 public class CategoryUseCase {
 
     private final ICategoryRepository categoryRepository;
-    private final ICategoryEntityMapper categoryEntityMapper;
 
-    public CategoryUseCase(ICategoryRepository categoryRepository, ICategoryEntityMapper categoryEntityMapper) {
+
+    public CategoryUseCase(ICategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.categoryEntityMapper = categoryEntityMapper;
     }
 
     // This method is responsible for creating a new category.
