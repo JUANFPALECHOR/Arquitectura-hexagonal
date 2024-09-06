@@ -16,16 +16,18 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static com.pragma.arquetipobootcamp2024.domain.util.DomainConstants.ERROR_BRAND_NAME_EXISTS;
 
-class BrandUseCaseTest {
+
+
+public class BrandUseCaseTest {
 
     @Mock
-    private IBrandRepository brandRepository;
+    private IBrandRepository brandRepository; // Simulamos el repositorio
 
     @Mock
-    private IBrandEntityMapper brandEntityMapper;
+    private IBrandEntityMapper brandEntityMapper; // Simulamos el mapper
 
     @InjectMocks
-    private BrandUseCase brandUseCase;
+    private BrandUseCase brandUseCase; // Inyectamos el use case que vamos a probar
 
     @BeforeEach
     void setUp() {
@@ -34,9 +36,9 @@ class BrandUseCaseTest {
 
     @Test
     void shouldThrowExceptionIfBrandExists() {
-        // Datos de prueba
+        // Arrange: Creamos un BrandRequest y simulamos la conversión a Brand
         BrandRequest brandRequest = new BrandRequest("Electronics", "Description");
-        Brand brand = new Brand("Electronics", "Description");
+        Brand brand = new Brand(null, "Electronics", "Description");
 
         // Simulamos el mapeo del DTO a la entidad de dominio
         when(brandEntityMapper.toDomain(brandRequest)).thenReturn(brand);
@@ -44,7 +46,7 @@ class BrandUseCaseTest {
         // Simulamos que ya existe una marca con ese nombre
         when(brandRepository.findByName("Electronics")).thenReturn(Optional.of(brand));
 
-        // Verificamos que se lance la excepción esperada
+        // Act & Assert: Verificamos que se lance la excepción esperada
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             brandUseCase.createBrand(brandRequest);
         });
@@ -54,9 +56,9 @@ class BrandUseCaseTest {
 
     @Test
     void shouldSaveBrandIfNew() {
-        // Datos de prueba
+        // Arrange: Creamos un BrandRequest y simulamos la conversión a Brand
         BrandRequest brandRequest = new BrandRequest("NewBrand", "Description");
-        Brand brand = new Brand("NewBrand", "Description");
+        Brand brand = new Brand(null, "NewBrand", "Description");
 
         // Simulamos el mapeo del DTO a la entidad de dominio
         when(brandEntityMapper.toDomain(brandRequest)).thenReturn(brand);
@@ -64,10 +66,10 @@ class BrandUseCaseTest {
         // Simulamos que no existe una marca con ese nombre
         when(brandRepository.findByName("NewBrand")).thenReturn(Optional.empty());
 
-        // Ejecutamos el método que estamos probando
+        // Act: Ejecutamos el método que estamos probando
         brandUseCase.createBrand(brandRequest);
 
-        // Verificamos que se haya llamado al método save del repositorio
+        // Assert: Verificamos que se haya llamado al método save del repositorio
         verify(brandRepository, times(1)).save(brand);
     }
 }

@@ -1,5 +1,9 @@
 package com.pragma.arquetipobootcamp2024.domain.model;
 
+
+import lombok.Builder;
+
+@Builder
 public class Brand {
 
     private Long id;
