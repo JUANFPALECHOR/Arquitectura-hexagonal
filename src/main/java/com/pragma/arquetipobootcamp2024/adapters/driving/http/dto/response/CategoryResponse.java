@@ -3,15 +3,13 @@ package com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.response;
 public class CategoryResponse {
     private Long id;
     private String name;
-    private String description;
 
     // Constructor, getters y setters
     public CategoryResponse() {}
 
-    public CategoryResponse(Long id, String name, String description) {
+    public CategoryResponse(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.description = description;
     }
 
     public Long getId() {
@@ -30,11 +28,4 @@ public class CategoryResponse {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
