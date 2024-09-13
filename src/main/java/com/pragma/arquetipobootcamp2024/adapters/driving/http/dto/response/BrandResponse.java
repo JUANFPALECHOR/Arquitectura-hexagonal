@@ -24,6 +24,6 @@ public class BrandResponse {
         this.name = name;
     }
 
-    // Getters and Setters
+
 }
 
