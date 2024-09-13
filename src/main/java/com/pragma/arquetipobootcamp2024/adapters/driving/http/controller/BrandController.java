@@ -1,5 +1,6 @@
 package com.pragma.arquetipobootcamp2024.adapters.driving.http.controller;
 
+import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.response.BrandResponse;
 import com.pragma.arquetipobootcamp2024.domain.api.usecase.BrandUseCase;
 import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.request.BrandRequest;
 import com.pragma.arquetipobootcamp2024.domain.model.Brand;

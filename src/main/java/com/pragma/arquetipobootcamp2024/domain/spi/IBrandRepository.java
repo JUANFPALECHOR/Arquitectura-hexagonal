@@ -9,4 +9,3 @@ public interface IBrandRepository {
     Optional<Brand> findByName(String name);
 
 }
-
