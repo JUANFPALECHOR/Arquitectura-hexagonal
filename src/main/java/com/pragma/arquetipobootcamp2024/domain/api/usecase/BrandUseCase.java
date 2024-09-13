@@ -4,6 +4,10 @@ import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.mapper.IBrandE
 import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.request.BrandRequest;
 import com.pragma.arquetipobootcamp2024.domain.model.Brand;
 import com.pragma.arquetipobootcamp2024.domain.spi.IBrandRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -47,4 +51,11 @@ public class BrandUseCase {
             throw new IllegalArgumentException(ERROR_BRAND_FIELDS_EMPTY);
         }
     }
+
+    public Page<Brand> listBrands(int page, int size, String sortDirection) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), "name"));
+        return brandRepository.findAll(pageable);
+    }
+
+
 }
