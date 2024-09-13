@@ -7,5 +7,6 @@ import java.util.Optional;
 public interface IBrandRepository {
     void save(Brand brand);
     Optional<Brand> findByName(String name);
+
 }
 
