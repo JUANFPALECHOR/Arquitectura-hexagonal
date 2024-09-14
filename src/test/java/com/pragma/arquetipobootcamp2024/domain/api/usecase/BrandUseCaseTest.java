@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -18,7 +21,7 @@ import static com.pragma.arquetipobootcamp2024.domain.util.DomainConstants.ERROR
 
 
 
-public class BrandUseCaseTest {
+class BrandUseCaseTest {
 
     @Mock
     private IBrandRepository brandRepository; // Simulamos el repositorio
@@ -71,5 +74,53 @@ public class BrandUseCaseTest {
 
         // Assert: Verificamos que se haya llamado al método save del repositorio
         verify(brandRepository, times(1)).save(brand);
+    }
+
+    @Test
+    void testListBrandsPaginatedAndSortedAscending() {
+        // Datos de prueba
+        Brand brand1 = new Brand(1L, "Brand A", "Description A");
+        Brand brand2 = new Brand(2L, "Brand B", "Description B");
+
+        List<Brand> brands = Arrays.asList(brand1, brand2);
+        Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "name"));
+        Page<Brand> brandPage = new PageImpl<>(brands, pageable, brands.size());
+
+        // Simulamos la llamada al repositorio
+        when(brandRepository.findAll(pageable)).thenReturn(brandPage);
+
+        // Ejecutamos el método bajo prueba
+        Page<Brand> result = brandUseCase.listBrands(0, 10, "ASC");
+
+        // Verificamos que los resultados son los esperados
+        assertEquals(2, result.getTotalElements());
+        assertEquals("Brand A", result.getContent().get(0).getName());
+        assertEquals("Brand B", result.getContent().get(1).getName());
+
+        verify(brandRepository, times(1)).findAll(pageable);
+    }
+
+    @Test
+    void testListBrandsPaginatedAndSortedDescending() {
+        // Datos de prueba
+        Brand brand1 = new Brand(1L, "Brand A", "Description A");
+        Brand brand2 = new Brand(2L, "Brand B", "Description B");
+
+        List<Brand> brands = Arrays.asList(brand2, brand1); // Orden invertido para la prueba
+        Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "name"));
+        Page<Brand> brandPage = new PageImpl<>(brands, pageable, brands.size());
+
+        // Simulamos la llamada al repositorio
+        when(brandRepository.findAll(pageable)).thenReturn(brandPage);
+
+        // Ejecutamos el método bajo prueba
+        Page<Brand> result = brandUseCase.listBrands(0, 10, "DESC");
+
+        // Verificamos que los resultados son los esperados
+        assertEquals(2, result.getTotalElements());
+        assertEquals("Brand B", result.getContent().get(0).getName());
+        assertEquals("Brand A", result.getContent().get(1).getName());
+
+        verify(brandRepository, times(1)).findAll(pageable);
     }
 }
