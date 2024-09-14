@@ -1,7 +1,6 @@
 package com.pragma.arquetipobootcamp2024.adapters.driving.http.controller;
 
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.mapper.IBrandEntityMapper;
-import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;
 import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.response.BrandResponse;
 import com.pragma.arquetipobootcamp2024.domain.api.usecase.BrandUseCase;
 import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.request.BrandRequest;
@@ -33,7 +32,7 @@ public class BrandController {
     }
 
 
-    @GetMapping("/brands")
+    @GetMapping
     public ResponseEntity<Page<BrandResponse>> listBrands(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
