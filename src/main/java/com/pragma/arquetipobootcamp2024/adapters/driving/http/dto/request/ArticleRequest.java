@@ -5,6 +5,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+
+import java.math.BigDecimal;
+
+
 public class ArticleRequest {
 
     @NotEmpty(message = "El nombre del artículo es obligatorio")
@@ -18,10 +22,10 @@ public class ArticleRequest {
 
     @NotNull(message = "El precio es obligatorio")
     @Positive(message = "El precio debe ser un valor positivo")
-    private Double price;
+    private BigDecimal price;
 
     @NotEmpty(message = "Debe haber al menos una categoría asociada")
-    private List<Long> categoryIds; // IDs de las categorías asociadas al artículo
+    private List<String> categories; // Ahora es una lista de nombres de categorías
 
     // Getters y Setters
 
@@ -49,19 +53,19 @@ public class ArticleRequest {
         this.quantity = quantity;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public List<Long> getCategoryIds() {
-        return categoryIds;
+    public List<String> getCategories() {
+        return categories;
     }
 
-    public void setCategoryIds(List<Long> categoryIds) {
-        this.categoryIds = categoryIds;
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 }
