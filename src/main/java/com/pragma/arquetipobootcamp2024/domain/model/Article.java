@@ -1,27 +1,20 @@
 package com.pragma.arquetipobootcamp2024.domain.model;
 
-import java.util.List;
+
+import java.lang.Double;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Article {
+
     private Long id;
     private String name;
     private String description;
-    private int quantity;
-    private double price;
-    private List<String> categories;  // Definir las categorías
+    private Integer quantity;
+    private Double price;
+    private Set<Category> categories = new HashSet<>();
 
-    // Constructor, getters y setters
-
-    public Article() {}
-
-    public Article(Long id, String name, String description, int quantity, double price, List<String> categories) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.quantity = quantity;
-        this.price = price;
-        this.categories = categories;
-    }
+    // Getters y Setters
 
     public Long getId() {
         return id;
@@ -47,27 +40,31 @@ public class Article {
         this.description = description;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public List<String> getCategories() {
+    public void addCategory(Category category) {
+        categories.add(category);
+    }
+
+    public Set<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<String> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 }

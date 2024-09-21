@@ -1,71 +1,30 @@
 package com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.request;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import java.util.List;
-
-
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.Set;
+import lombok.Data;
 
-
+@Data
 public class ArticleRequest {
 
-    @NotEmpty(message = "El nombre del artículo es obligatorio")
+    @NotBlank(message = "El nombre del artículo es obligatorio.")
     private String name;
 
+    @NotBlank(message = "La descripción del artículo es obligatoria.")
     private String description;
 
-    @NotNull(message = "La cantidad es obligatoria")
-    @Positive(message = "La cantidad debe ser un valor positivo")
+    @NotNull(message = "La cantidad del artículo es obligatoria.")
+    @PositiveOrZero(message = "La cantidad no puede ser negativa.")
     private Integer quantity;
 
-    @NotNull(message = "El precio es obligatorio")
-    @Positive(message = "El precio debe ser un valor positivo")
-    private BigDecimal price;
+    @NotNull(message = "El precio del artículo es obligatorio.")
+    @DecimalMin(value = "0.0", inclusive = false, message = "El precio debe ser mayor que cero.")
+    private Double price;
 
-    @NotEmpty(message = "Debe haber al menos una categoría asociada")
-    private List<String> categories; // Ahora es una lista de nombres de categorías
+    @NotNull(message = "Las categorías del artículo son obligatorias.")
+    @Size(min = 1, max = 3, message = "El artículo debe tener entre 1 y 3 categorías.")
+    private Set<@NotNull(message = "El ID de la categoría no puede ser nulo.") Long> categoryIds;
 
-    // Getters y Setters
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public List<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
-    }
+    // Lombok generará getters y setters automáticamente con @Data
 }

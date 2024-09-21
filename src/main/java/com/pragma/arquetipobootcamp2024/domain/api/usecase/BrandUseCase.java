@@ -26,7 +26,6 @@ public class BrandUseCase {
     }
 
     public void createBrand(BrandRequest brandRequest) {
-        // Convertimos el BrandRequest a Brand usando el mapper
         Brand brand = brandEntityMapper.toDomain(brandRequest);
 
         validateBrand(brand);

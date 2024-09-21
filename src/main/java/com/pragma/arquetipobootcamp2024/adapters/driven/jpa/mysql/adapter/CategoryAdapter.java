@@ -58,4 +58,10 @@ public class CategoryAdapter implements ICategoryRepository {
         return categoryRepository.findAll(pageable)
                 .map(categoryEntityMapper::toDomain);  //
     }
+
+    @Override
+    public Optional<Category> findById(Long id) {
+        return categoryRepository.findById(id)
+                .map(categoryEntityMapper::toDomain);
+    }
 }

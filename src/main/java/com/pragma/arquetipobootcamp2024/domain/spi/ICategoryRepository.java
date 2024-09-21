@@ -14,6 +14,7 @@ import java.util.Optional;
 
 public interface ICategoryRepository {
     void save(Category category); // Save a Category but returns nothing
-    Optional<Category> findByName(String name);//search a category by name
+    Optional<Category> findByName(String name);
+    Optional<Category> findById(Long id);//search a category by name
     Page<Category> findAll(Pageable pageable);
 }

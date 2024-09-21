@@ -1,9 +1,8 @@
 package com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.entity;
 
 import lombok.Data;
-
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -15,18 +14,23 @@ public class ArticleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true) // Aseguramos que el nombre sea único
     private String name;
+
+    @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
     private int quantity;
-    private BigDecimal price;
+
+    @Column(nullable = false)
+    private Double price;
 
     @ManyToMany
     @JoinTable(
-            name = "article_category",
+            name = "article_categories",
             joinColumns = @JoinColumn(name = "article_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<CategoryEntity> categories;
-
-
+    private Set<CategoryEntity> categories = new HashSet<>();
 }
