@@ -1,10 +1,13 @@
 package com.pragma.arquetipobootcamp2024.domain.model;
 
 
+import lombok.Data;
+
 import java.lang.Double;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 public class Article {
 
     private Long id;
@@ -13,6 +16,7 @@ public class Article {
     private Integer quantity;
     private Double price;
     private Set<Category> categories = new HashSet<>();
+    private Brand brand;
 
     // Getters y Setters
 
@@ -56,15 +60,19 @@ public class Article {
         this.price = price;
     }
 
-    public void addCategory(Category category) {
-        categories.add(category);
-    }
-
     public Set<Category> getCategories() {
         return categories;
     }
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }

@@ -1,13 +1,13 @@
 package com.pragma.arquetipobootcamp2024.domain.api.usecase;
 
-
-import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.mapper.IArticleMapper;
 import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.request.ArticleRequest;
 import com.pragma.arquetipobootcamp2024.domain.exception.ArticleAlreadyExistsException;
 import com.pragma.arquetipobootcamp2024.domain.exception.InvalidArticleException;
 import com.pragma.arquetipobootcamp2024.domain.model.Article;
+import com.pragma.arquetipobootcamp2024.domain.model.Brand;
 import com.pragma.arquetipobootcamp2024.domain.model.Category;
 import com.pragma.arquetipobootcamp2024.domain.spi.IArticlePersistencePort;
+import com.pragma.arquetipobootcamp2024.domain.spi.IBrandRepository;
 import com.pragma.arquetipobootcamp2024.domain.spi.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,17 +22,9 @@ import java.util.Set;
 public class ArticleUseCase {
 
     private final IArticlePersistencePort articlePersistencePort;
-    private final ICategoryRepository categoryPersistencePort; // Puerto de persistencia para categorías
-    private final IArticleMapper articleMapper;
+    private final ICategoryRepository categoryPersistencePort;
+    private final IBrandRepository brandPersistencePort;
 
-    /**
-     * Crea un nuevo artículo en el sistema.
-     *
-     * @param articleRequest Los datos necesarios para crear el artículo.
-     * @return El artículo creado.
-     * @throws ArticleAlreadyExistsException Si ya existe un artículo con el mismo nombre.
-     * @throws InvalidArticleException       Si los datos proporcionados son inválidos.
-     */
     @Transactional
     public Article createArticle(ArticleRequest articleRequest) {
         // Validaciones de negocio
@@ -44,13 +36,16 @@ public class ArticleUseCase {
             throw new InvalidArticleException("Price must be greater than zero.");
         }
 
-        // Validar la cantidad de categorías
         if (articleRequest.getCategoryIds().size() < 1 || articleRequest.getCategoryIds().size() > 3) {
             throw new InvalidArticleException("El artículo debe tener entre 1 y 3 categorías.");
         }
 
-        // Convertir el DTO a dominio
-        Article article = articleMapper.toDomain(articleRequest);
+        // Crear el objeto Article manualmente
+        Article article = new Article();
+        article.setName(articleRequest.getName());
+        article.setDescription(articleRequest.getDescription());
+        article.setPrice(articleRequest.getPrice());
+        article.setQuantity(articleRequest.getQuantity());
 
         // Manejar las categorías
         Set<Category> categories = new HashSet<>();
@@ -68,9 +63,16 @@ public class ArticleUseCase {
             throw new ArticleAlreadyExistsException("Article with name " + article.getName() + " already exists.");
         }
 
+        // Manejar la marca
+        if (articleRequest.getBrandId() != null) {
+            Brand brand = brandPersistencePort.findById(articleRequest.getBrandId())
+                    .orElseThrow(() -> new InvalidArticleException("Marca no encontrada con id: " + articleRequest.getBrandId()));
+            article.setBrand(brand);
+        } else {
+            article.setBrand(null); // O simplemente no asignes nada
+        }
+
         // Guardar el artículo
         return articlePersistencePort.save(article);
     }
-
-    // Otros métodos como get, update, delete...
 }

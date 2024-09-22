@@ -27,7 +27,7 @@ public class BrandController {
         Brand brand = new Brand();
         brand.setName(brandRequest.getName());
         brand.setDescription(brandRequest.getDescription());
-        brandUseCase.createBrand(brandRequest);
+        brandUseCase.createBrand(brand);
         return new ResponseEntity<>("Brand created successfully", HttpStatus.CREATED);
     }
 

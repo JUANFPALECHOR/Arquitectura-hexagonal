@@ -33,8 +33,13 @@ public class BrandAdapter implements IBrandRepository {
     }
 
     @Override
+    public Optional<Brand> findById(Long id) {
+        return brandRepository.findById(id)
+                .map(brandEntityMapper::toDomain);
+    }
+
+    @Override
     public Page<Brand> findAll(Pageable pageable) {
-        // Gets the paged entities and converts them to domain objects
         return brandRepository.findAll(pageable)
                 .map(brandEntityMapper::toDomain);  //
     }

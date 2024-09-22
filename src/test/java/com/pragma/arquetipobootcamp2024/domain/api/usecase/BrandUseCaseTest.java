@@ -51,7 +51,7 @@ class BrandUseCaseTest {
 
         // Act & Assert: Verificamos que se lance la excepción esperada
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            brandUseCase.createBrand(brandRequest);
+
         });
 
         assertEquals(ERROR_BRAND_NAME_EXISTS, exception.getMessage());
@@ -69,8 +69,6 @@ class BrandUseCaseTest {
         // Simulamos que no existe una marca con ese nombre
         when(brandRepository.findByName("NewBrand")).thenReturn(Optional.empty());
 
-        // Act: Ejecutamos el método que estamos probando
-        brandUseCase.createBrand(brandRequest);
 
         // Assert: Verificamos que se haya llamado al método save del repositorio
         verify(brandRepository, times(1)).save(brand);

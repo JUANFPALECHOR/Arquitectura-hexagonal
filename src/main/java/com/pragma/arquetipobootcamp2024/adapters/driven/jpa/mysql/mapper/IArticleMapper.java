@@ -9,9 +9,14 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface IArticleMapper {
     @Mapping(target = "categories", ignore = true)
+    @Mapping(target = "brand", ignore = true)
     ArticleEntity toEntity(Article article);
     Article toDomain(ArticleEntity articleEntity);
+    @Mapping(target = "categories", ignore = true)
+    @Mapping(target = "brand", ignore = true)
     Article toDomain(ArticleRequest articleRequest);
+
+
 }
 
 

@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface IBrandRepository {
     void save(Brand brand);
+    Optional<Brand> findById(Long id);
     Optional<Brand> findByName(String name);
     Page<Brand> findAll(Pageable pageable);
 

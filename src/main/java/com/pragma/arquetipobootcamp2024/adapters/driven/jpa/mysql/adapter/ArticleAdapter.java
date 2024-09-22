@@ -1,9 +1,11 @@
 package com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.entity.ArticleEntity;
+import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.entity.BrandEntity;
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.entity.CategoryEntity;
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.mapper.IArticleMapper;
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.repository.ArticleRepository;
+import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.repository.BrandRepository;
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.repository.CategoryRepository;
 import com.pragma.arquetipobootcamp2024.domain.model.Article;
 import com.pragma.arquetipobootcamp2024.domain.model.Category;
@@ -22,6 +24,7 @@ public class ArticleAdapter implements IArticlePersistencePort {
     private final ArticleRepository articleRepository;
     private final CategoryRepository categoryRepository; // Necesitamos acceder a las categorías
     private final IArticleMapper articleMapper;
+    private final BrandRepository brandRepository;
 
     @Override
     public Article save(Article article) {
@@ -36,6 +39,12 @@ public class ArticleAdapter implements IArticlePersistencePort {
         }
 
         articleEntity.setCategories(categoryEntities);
+
+
+        //marca
+        BrandEntity brandEntity = brandRepository.findById(article.getBrand().getId())
+                .orElseThrow(() -> new RuntimeException("Marca no encontrada con id: " + article.getBrand().getId()));
+        articleEntity.setBrand(brandEntity);
 
         ArticleEntity savedEntity = articleRepository.save(articleEntity);
         return articleMapper.toDomain(savedEntity);
