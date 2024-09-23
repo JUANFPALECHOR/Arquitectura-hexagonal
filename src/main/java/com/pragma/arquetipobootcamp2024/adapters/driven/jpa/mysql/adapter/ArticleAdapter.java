@@ -11,6 +11,8 @@ import com.pragma.arquetipobootcamp2024.domain.model.Article;
 import com.pragma.arquetipobootcamp2024.domain.model.Category;
 import com.pragma.arquetipobootcamp2024.domain.spi.IArticlePersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
@@ -59,6 +61,13 @@ public class ArticleAdapter implements IArticlePersistencePort {
     @Override
     public Optional<Article> findById(Long id) {
         return articleRepository.findById(id)
+                .map(articleMapper::toDomain);
+    }
+
+    // Paginacion
+    @Override
+    public Page<Article> findAll(Pageable pageable) {
+        return articleRepository.findAll(pageable)
                 .map(articleMapper::toDomain);
     }
 

@@ -28,5 +28,4 @@ public class ArticleRequest {
     @NotNull(message = "El ID de la marca es obligatorio.")
     private Long brandId;
 
-    // Lombok generará getters y setters automáticamente con @Data
 }

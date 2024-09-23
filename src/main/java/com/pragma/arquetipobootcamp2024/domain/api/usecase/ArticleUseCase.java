@@ -10,6 +10,10 @@ import com.pragma.arquetipobootcamp2024.domain.spi.IArticlePersistencePort;
 import com.pragma.arquetipobootcamp2024.domain.spi.IBrandRepository;
 import com.pragma.arquetipobootcamp2024.domain.spi.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +40,7 @@ public class ArticleUseCase {
             throw new InvalidArticleException("Price must be greater than zero.");
         }
 
-        if (articleRequest.getCategoryIds().size() < 1 || articleRequest.getCategoryIds().size() > 3) {
+        if (articleRequest.getCategoryIds().isEmpty() || articleRequest.getCategoryIds().size() > 3) {
             throw new InvalidArticleException("El artículo debe tener entre 1 y 3 categorías.");
         }
 
@@ -76,6 +80,10 @@ public class ArticleUseCase {
         return articlePersistencePort.save(article);
 
 
+    }
 
+    public Page<Article> listArticles(int page, int size, String sortDirection) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), "name"));
+        return articlePersistencePort.findAll(pageable);
     }
 }

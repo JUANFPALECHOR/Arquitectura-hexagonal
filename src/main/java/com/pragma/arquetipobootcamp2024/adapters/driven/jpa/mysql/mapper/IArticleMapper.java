@@ -16,8 +16,8 @@ public interface IArticleMapper {
     @Mapping(target = "categories", ignore = true)
     @Mapping(target = "brand", ignore = true)
     Article toDomain(ArticleRequest articleRequest);
+    @Mapping(target = "brandId", source = "brand.id")
     ArticleResponse toResponse(Article article);
-
 
 }
 

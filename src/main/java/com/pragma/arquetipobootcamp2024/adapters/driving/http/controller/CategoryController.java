@@ -58,6 +58,8 @@ public class CategoryController {
         Page<CategoryResponse> response = categories.map(categoryEntityMapper::toResponse);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+
 }
 
 

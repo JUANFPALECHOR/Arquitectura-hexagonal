@@ -11,8 +11,5 @@ public interface IArticlePersistencePort {
     Optional<Article> findByName(String name);
     Optional<Article> findById(Long id);
     Page<Article> findAll(Pageable pageable);
-
-
-
 }
 
