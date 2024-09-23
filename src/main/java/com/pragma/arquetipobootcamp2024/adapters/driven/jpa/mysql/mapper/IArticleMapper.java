@@ -2,6 +2,7 @@ package com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.mapper;
 
 import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.entity.ArticleEntity;
 import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.request.ArticleRequest;
+import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.response.ArticleResponse;
 import com.pragma.arquetipobootcamp2024.domain.model.Article;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,6 +16,7 @@ public interface IArticleMapper {
     @Mapping(target = "categories", ignore = true)
     @Mapping(target = "brand", ignore = true)
     Article toDomain(ArticleRequest articleRequest);
+    ArticleResponse toResponse(Article article);
 
 
 }
