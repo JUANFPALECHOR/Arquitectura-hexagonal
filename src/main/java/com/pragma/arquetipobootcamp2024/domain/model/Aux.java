@@ -17,6 +17,4 @@ public class Aux {
     private String clave;
     private String rol;
 
-
-
 }
