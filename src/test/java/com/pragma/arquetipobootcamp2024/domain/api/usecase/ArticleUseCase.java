@@ -1,9 +1,6 @@
 package com.pragma.arquetipobootcamp2024.domain.api.usecase;
 
 import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.request.ArticleRequest;
-import com.pragma.arquetipobootcamp2024.domain.api.usecase.ArticleUseCase;
-import com.pragma.arquetipobootcamp2024.domain.exception.ArticleAlreadyExistsException;
-import com.pragma.arquetipobootcamp2024.domain.exception.InvalidArticleException;
 import com.pragma.arquetipobootcamp2024.domain.model.Article;
 import com.pragma.arquetipobootcamp2024.domain.model.Brand;
 import com.pragma.arquetipobootcamp2024.domain.model.Category;
@@ -16,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.HashSet;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -66,7 +63,7 @@ class ArticleUseCaseTest {
         when(articlePersistencePort.findByName("Laptop")).thenReturn(Optional.empty());
 
         Article savedArticle = new Article();
-        savedArticle.setId(1L); // Simula que el ID será asignado
+        savedArticle.setId(1L);
         savedArticle.setName("Laptop");
         savedArticle.setDescription("High-end laptop");
         savedArticle.setQuantity(10);
