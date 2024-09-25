@@ -3,7 +3,7 @@ package com.pragma.arquetipobootcamp2024.domain.model;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.Period;
+
 
 
 @Data
