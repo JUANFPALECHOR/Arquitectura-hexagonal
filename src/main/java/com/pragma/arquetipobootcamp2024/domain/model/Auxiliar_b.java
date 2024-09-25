@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 
 @Data
-public class Aux {
+public class Auxiliar_b {
     private String nombre;
     private String apellido;
     private String documentoDeIdentidad;

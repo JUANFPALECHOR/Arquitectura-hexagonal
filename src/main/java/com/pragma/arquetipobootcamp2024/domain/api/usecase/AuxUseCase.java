@@ -1,7 +1,7 @@
 package com.pragma.arquetipobootcamp2024.domain.api.usecase;
 
 import com.pragma.arquetipobootcamp2024.domain.exception.UnderageAuxException;
-import com.pragma.arquetipobootcamp2024.domain.model.Aux;
+import com.pragma.arquetipobootcamp2024.domain.model.Auxiliar_b;
 import com.pragma.arquetipobootcamp2024.domain.spi.IAuxRepository;
 import com.pragma.arquetipobootcamp2024.domain.spi.PasswordEncoder;
 
@@ -22,7 +22,7 @@ public class AuxUseCase {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void execute(Aux aux) {
+    public void execute(Auxiliar_b aux) {
         // Verifica si el usuario es mayor de edad
         LocalDate today = LocalDate.now();
         int age = Period.between(aux.getFechaNacimiento(), today).getYears();

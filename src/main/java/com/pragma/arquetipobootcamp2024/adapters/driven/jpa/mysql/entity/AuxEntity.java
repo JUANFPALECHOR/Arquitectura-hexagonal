@@ -20,11 +20,11 @@ public class AuxEntity {
     private String documentoDeIdentidad;
     private String celular;
 
-    @Column(name = "fecha_nacimiento") // Nombre de la columna en la base de datos
+    @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
     private String correo;
-    private String clave; // La contraseña encriptada
+    private String clave;
     private String rol;
 
     // Constructores
