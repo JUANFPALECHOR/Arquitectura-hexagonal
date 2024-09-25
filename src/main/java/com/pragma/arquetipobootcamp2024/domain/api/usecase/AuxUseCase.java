@@ -8,6 +8,9 @@ import com.pragma.arquetipobootcamp2024.domain.spi.PasswordEncoder;
 import java.time.LocalDate;
 import java.time.Period;
 
+import static com.pragma.arquetipobootcamp2024.domain.util.DomainConstants.ERROR_UNDERAGE_AUX;
+import static com.pragma.arquetipobootcamp2024.domain.util.DomainConstants.ROLE_AUX_BODEGA;
+
 
 public class AuxUseCase {
 
@@ -24,13 +27,13 @@ public class AuxUseCase {
         LocalDate today = LocalDate.now();
         int age = Period.between(aux.getFechaNacimiento(), today).getYears();
         if (age < 18) {
-            throw new UnderageAuxException("User must be an adult.");
+            throw new UnderageAuxException(ERROR_UNDERAGE_AUX);
         }
 
         // Cifra la contraseña
         aux.setClave(passwordEncoder.encode(aux.getClave()));
         // Asigna el rol
-        aux.setRol("aux_bodega");
+        aux.setRol(ROLE_AUX_BODEGA);
         // Guarda el usuario
         auxRepository.save(aux);
     }

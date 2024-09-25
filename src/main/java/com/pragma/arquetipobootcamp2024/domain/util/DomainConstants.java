@@ -30,4 +30,7 @@ public final class DomainConstants {
     public static final String FIELD_CANNOT_BE_EMPTY = "El campo no puede estar vacío.";
     public static final String FIELD_CANNOT_EXCEED_MAX_LENGTH = "El campo no puede exceder el número máximo de caracteres permitido.";
 
+    public static final String ERROR_UNDERAGE_AUX = "User must be an adult.";
+    public static final String ROLE_AUX_BODEGA = "aux_bodega";
+
 }
