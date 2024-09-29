@@ -4,6 +4,7 @@ import com.pragma.arquetipobootcamp2024.domain.exception.UnderageAuxException;
 import com.pragma.arquetipobootcamp2024.domain.model.Auxiliar_b;
 import com.pragma.arquetipobootcamp2024.domain.spi.IAuxRepository;
 import com.pragma.arquetipobootcamp2024.domain.spi.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -11,7 +12,7 @@ import java.time.Period;
 import static com.pragma.arquetipobootcamp2024.domain.util.DomainConstants.ERROR_UNDERAGE_AUX;
 import static com.pragma.arquetipobootcamp2024.domain.util.DomainConstants.ROLE_AUX_BODEGA;
 
-
+@Service
 public class AuxUseCase {
 
     private final IAuxRepository auxRepository;
