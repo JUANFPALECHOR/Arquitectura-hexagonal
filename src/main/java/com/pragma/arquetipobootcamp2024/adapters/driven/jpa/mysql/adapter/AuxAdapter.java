@@ -12,30 +12,7 @@ public class AuxAdapter {
         this.auxRepository = auxRepository;
 
     }
-    public static AuxEntity toEntity(Auxiliar_b aux) {
-        AuxEntity entity = new AuxEntity();
-        entity.setNombre(aux.getNombre());
-        entity.setApellido(aux.getApellido());
-        entity.setDocumentoDeIdentidad(aux.getDocumentoDeIdentidad());
-        entity.setCelular(aux.getCelular());
-        entity.setFechaNacimiento(aux.getFechaNacimiento());
-        entity.setCorreo(aux.getCorreo());
-        entity.setClave(aux.getClave());
-        entity.setRol(aux.getRol());
-        return entity;
-    }
 
-    public static Auxiliar_b toDomain(AuxEntity entity) {
-        Auxiliar_b aux = new Auxiliar_b();
-        aux.setNombre(entity.getNombre());
-        aux.setApellido(entity.getApellido());
-        aux.setDocumentoDeIdentidad(entity.getDocumentoDeIdentidad());
-        aux.setCelular(entity.getCelular());
-        aux.setFechaNacimiento(entity.getFechaNacimiento());
-        aux.setCorreo(entity.getCorreo());
-        aux.setClave(entity.getClave());
-        aux.setRol(entity.getRol());
-        return aux;
-    }
+
 }
 
