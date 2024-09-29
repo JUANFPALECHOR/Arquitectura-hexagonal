@@ -1,5 +1,6 @@
 package com.pragma.arquetipobootcamp2024.adapters.driving.http.controller;
 
+import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.mapper.AuxMapper;
 import com.pragma.arquetipobootcamp2024.adapters.driving.http.dto.request.AuxRequest;
 import com.pragma.arquetipobootcamp2024.domain.api.usecase.AuxUseCase;
 import com.pragma.arquetipobootcamp2024.domain.model.Auxiliar_b;
@@ -13,10 +14,11 @@ import javax.validation.Valid;
 public class AuxController {
 
     private final AuxUseCase auxUseCase;
-    private final
+    private final AuxMapper auxMapper;
 
-    public AuxController(AuxUseCase auxUseCase) {
+    public AuxController(AuxUseCase auxUseCase, AuxMapper auxMapper) {
         this.auxUseCase = auxUseCase;
+        this.auxMapper = auxMapper;
     }
 
 
