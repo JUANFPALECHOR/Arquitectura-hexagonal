@@ -7,9 +7,7 @@ import java.util.Optional;
 
 public interface IAuxRepository {
 
-
     void save(Auxiliar_b aux);
-
     Optional<Auxiliar_b> findByCorreo(String correo);
     Optional<Auxiliar_b> findByDocumentoDeIdentidad(String documentoDeIdentidad);
 

@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -29,5 +30,7 @@ public class AuxRequest {
     @Email(message = "El correo debe ser válido")
     private String correo;
 
-    private String rol;
+
+    @NotNull(message = "La clave no puede ser nula")
+    private String clave;
 }
