@@ -16,7 +16,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/auxiliar").permitAll() // Permitir acceso a la ruta auxiliar
+                .antMatchers("/usuarios").permitAll() // Permitir acceso a la ruta auxiliar
                 .anyRequest().authenticated() // Requiere autenticación para cualquier otra solicitud
                 .and()
                 .httpBasic()

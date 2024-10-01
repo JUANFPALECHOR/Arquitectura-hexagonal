@@ -1,20 +1,25 @@
 package com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.entity;
 
 
-import lombok.Data;
+import com.pragma.arquetipobootcamp2024.domain.model.Rol;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
+@ToString(exclude = "claveHash") // Excluye la contraseña del método toString
 @Entity
-@Table(name = "Auxiliar_bodega")
-public class AuxEntity {
+@Table(name = "usuarios") // Cambia el nombre de la tabla si es necesario
+public class UsuarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
     private String nombre;
     private String apellido;
     private String documentoDeIdentidad;
@@ -24,15 +29,16 @@ public class AuxEntity {
     private LocalDate fechaNacimiento;
 
     private String correo;
-    private String clave;
-    private String rol;
+    private String claveHash; // Renombrado para indicar que es una contraseña encriptada
 
-    // Constructores
-    public AuxEntity() {}
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
 
+    // Constructor por defecto
+    public UsuarioEntity() {}
 
-
-    private AuxEntity(Builder builder) {
+    // Constructor con Builder (opcional)
+    private UsuarioEntity(Builder builder) {
         this.id = builder.id;
         this.nombre = builder.nombre;
         this.apellido = builder.apellido;
@@ -40,11 +46,11 @@ public class AuxEntity {
         this.celular = builder.celular;
         this.fechaNacimiento = builder.fechaNacimiento;
         this.correo = builder.correo;
-        this.clave = builder.clave;
+        this.claveHash = builder.claveHash;
         this.rol = builder.rol;
     }
 
-    // Métodos estáticos para el Builder
+    // Métodos estáticos para el Builder (opcional)
     public static class Builder {
         private Long id;
         private String nombre;
@@ -53,8 +59,8 @@ public class AuxEntity {
         private String celular;
         private LocalDate fechaNacimiento;
         private String correo;
-        private String clave;
-        private String rol;
+        private String claveHash;
+        private Rol rol;
 
         public Builder withId(Long id) {
             this.id = id;
@@ -91,23 +97,19 @@ public class AuxEntity {
             return this;
         }
 
-        public Builder withClave(String clave) {
-            this.clave = clave;
+        public Builder withClaveHash(String claveHash) {
+            this.claveHash = claveHash;
             return this;
         }
 
-        public Builder withRol(String rol) {
+        public Builder withRol(Rol rol) {
             this.rol = rol;
             return this;
         }
 
-        public AuxEntity build() {
-            return new AuxEntity(this);
+        public UsuarioEntity build() {
+            return new UsuarioEntity(this);
         }
     }
-
-
-
-
-
 }
+
