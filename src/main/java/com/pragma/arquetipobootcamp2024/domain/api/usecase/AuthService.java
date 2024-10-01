@@ -1,5 +1,7 @@
 package com.pragma.arquetipobootcamp2024.domain.api.usecase;
 
+import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.exception.InvalidCredentialsException;
+import com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.security.JwtProvider;
 import com.pragma.arquetipobootcamp2024.domain.model.Usuario;
 import com.pragma.arquetipobootcamp2024.domain.spi.IUsuarioPersistencePort;
 import org.springframework.beans.factory.annotation.Autowired;
