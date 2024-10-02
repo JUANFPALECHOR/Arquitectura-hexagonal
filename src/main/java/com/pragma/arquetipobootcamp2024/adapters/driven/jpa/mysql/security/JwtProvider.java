@@ -3,6 +3,7 @@ package com.pragma.arquetipobootcamp2024.adapters.driven.jpa.mysql.security;
 
 
 import com.pragma.arquetipobootcamp2024.domain.model.Usuario;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
@@ -16,10 +17,30 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    // Clave secreta utilizada para firmar los tokens. Debe ser almacenada de manera segura.
-    private final String jwtSecret = "juan";
-    // Tiempo de expiración del token en milisegundos (1 día en este caso).
-    private final long jwtExpirationMs = 86400000; // 1 día en milisegundos
+
+    private String jwtSecret = "juan";  // Define directamente el valor para probar
+
+    private long jwtExpirationMs = 86400000;
+
+
+    // Método para validar el token
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    // Método para extraer el correo del token
+    public String getCorreoFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject(); // El subject en el token es el correo del usuario
+    }
 
     /**
      * Genera un token JWT para el usuario especificado.
