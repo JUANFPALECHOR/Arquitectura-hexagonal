@@ -8,6 +8,7 @@ import com.pragma.arquetipobootcamp2024.domain.model.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /*
@@ -41,6 +42,7 @@ public class CategoryController {
 
 
     @PostMapping// this method will handle HTTP requests of type POST
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> createCategory(@RequestBody CategoryRequest categoryRequest) {
         Category category = categoryEntityMapper.toDomain(categoryRequest);
         categoryUseCase.createCategory(category);
@@ -50,6 +52,7 @@ public class CategoryController {
 
     // ResponseEntity Used to return HTTP responses
     @GetMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Page<CategoryResponse>> listCategories(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,

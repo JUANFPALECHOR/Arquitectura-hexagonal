@@ -1,7 +1,7 @@
 package com.pragma.arquetipobootcamp2024.domain.model;
 
 public enum Rol {
-    ADMINISTRADOR,
+    ADMIN,
     AUX_BODEGA,
     CLIENTE
 }
