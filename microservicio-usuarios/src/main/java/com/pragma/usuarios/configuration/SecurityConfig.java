@@ -35,7 +35,7 @@ public class SecurityConfig {
                 // Definir las autorizaciones
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll() // Permitir todas las solicitudes a /api/auth/**
-                .antMatchers("/api/usuarios/**").hasRole("ADMIN")
+                .antMatchers("/api/usuarios/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated() // Requerir autenticación para cualquier otra solicitud
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Agregar filtro JWT antes de UsernamePasswordAuthenticationFilter

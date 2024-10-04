@@ -42,6 +42,14 @@ public class JwtProvider {
         return claims.getSubject(); // El subject en el token es el correo del usuario
     }
 
+    public String getRolFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("rol", String.class); // Extrae el rol del JWT
+    }
+
     /**
      * Genera un token JWT para el usuario especificado.
      *
@@ -54,7 +62,7 @@ public class JwtProvider {
                 .claim("id", usuario.getId()) // Agrega el ID del usuario como un reclamo en el token.
                 .claim("nombre", usuario.getNombre()) // Agrega el nombre del usuario como un reclamo.
                 .claim("apellido", usuario.getApellido()) // Agrega el apellido del usuario como un reclamo.
-                .claim("rol", usuario.getRol().name()) // Agrega el rol del usuario como un reclamo.
+                .claim("rol", usuario.getRol().name())
                 .setIssuedAt(new Date()) // Establece la fecha de emisión del token.
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)) // Establece la fecha de expiración.
                 .signWith(SignatureAlgorithm.HS512, jwtSecret) // Firma el token con el algoritmo HS512 y la clave secreta.
