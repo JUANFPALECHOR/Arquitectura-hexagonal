@@ -52,6 +52,7 @@ public class ControllerAdvisor {
     // Manejo de excepciones generales
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGlobalException(Exception ex) {
+        ex.printStackTrace();
         Map<String, String> response = new HashMap<>();
         response.put(ERROR_KEY, "Ocurrió un error inesperado. Por favor intente más tarde.");
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
