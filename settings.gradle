@@ -7,3 +7,6 @@ pluginManagement {
 }
 
 rootProject.name = 'arquetipobootcamp2024'
+
+include 'microservicio-usuarios'
+include 'microservicio-stock'
