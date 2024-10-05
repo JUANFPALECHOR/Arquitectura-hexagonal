@@ -26,7 +26,7 @@ public class BrandController {
 
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String> createBrand(@RequestBody BrandRequest brandRequest) {
         Brand brand = new Brand();
         brand.setName(brandRequest.getName());
@@ -37,7 +37,6 @@ public class BrandController {
 
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Page<BrandResponse>> listBrands(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,

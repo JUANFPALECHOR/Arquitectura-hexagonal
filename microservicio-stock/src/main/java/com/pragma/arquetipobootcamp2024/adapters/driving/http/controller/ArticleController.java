@@ -31,14 +31,13 @@ public class ArticleController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String> createArticle(@Valid @RequestBody ArticleRequest articleRequest) {
         articleUseCase.createArticle(articleRequest);
         return new ResponseEntity<>("Artículo creado exitosamente.", HttpStatus.CREATED);
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Page<ArticleResponse>> listArticles(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,

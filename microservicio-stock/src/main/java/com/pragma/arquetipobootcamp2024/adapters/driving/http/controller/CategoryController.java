@@ -42,7 +42,7 @@ public class CategoryController {
 
 
     @PostMapping// this method will handle HTTP requests of type POST
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String> createCategory(@RequestBody CategoryRequest categoryRequest) {
         Category category = categoryEntityMapper.toDomain(categoryRequest);
         categoryUseCase.createCategory(category);
@@ -52,7 +52,6 @@ public class CategoryController {
 
     // ResponseEntity Used to return HTTP responses
     @GetMapping
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Page<CategoryResponse>> listCategories(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
