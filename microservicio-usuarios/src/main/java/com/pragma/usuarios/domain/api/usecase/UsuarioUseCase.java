@@ -43,6 +43,15 @@ public class UsuarioUseCase {
             throw new InvalidInputException(DomainConstants.ERROR_INVALID_DOCUMENTO);
         }
 
+        // Verificar si el usuario es mayor de edad
+        LocalDate today = LocalDate.now();
+        int age = Period.between(usuario.getFechaNacimiento(), today).getYears();
+        if (age < 18) {
+            throw new UnderageUserException(DomainConstants.ERROR_UNDERAGE_USER);
+        }
+
+
+
         // Verificar si el correo electrónico ya existe
         if (usuarioRepository.findByCorreo(usuario.getCorreo()).isPresent()) {
             throw new EmailAlreadyExistsException(DomainConstants.ERROR_EMAIL_ALREADY_EXISTS);
@@ -53,12 +62,7 @@ public class UsuarioUseCase {
             throw new DocumentAlreadyExistsException(DomainConstants.ERROR_DOCUMENTO_EN_USO);
         }
 
-        // Verificar si el usuario es mayor de edad
-        LocalDate today = LocalDate.now();
-        int age = Period.between(usuario.getFechaNacimiento(), today).getYears();
-        if (age < 18) {
-            throw new UnderageUserException(DomainConstants.ERROR_UNDERAGE_USER);
-        }
+
 
         // Cifrar la contraseña
         usuario.setClaveHash(passwordEncoder.encode(usuario.getClaveHash()));
