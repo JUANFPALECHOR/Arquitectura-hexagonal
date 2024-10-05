@@ -31,6 +31,6 @@ public class AuthService {
             throw new InvalidCredentialsException("Correo o contraseña incorrectos.");
         }
 
-        return jwtProvider.generateToken(usuario);
+        return jwtProvider.generateToken(usuario.getCorreo(), usuario.getRol().name());
     }
 }

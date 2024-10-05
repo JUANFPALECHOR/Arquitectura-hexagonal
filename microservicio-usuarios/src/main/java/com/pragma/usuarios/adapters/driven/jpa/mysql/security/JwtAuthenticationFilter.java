@@ -13,9 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -29,22 +27,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
         String jwt = getTokenFromRequest(request);
 
         if (jwt != null && jwtProvider.validateToken(jwt)) {
-            // Extraer los detalles del usuario y el rol desde el token
             String username = jwtProvider.getCorreoFromToken(jwt);
             String rol = jwtProvider.getRolFromToken(jwt);
 
-            // Crear una lista de autoridades basada en el rol del usuario
-            List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(rol));
+            List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + rol));
 
-            // Crear una autenticación basada en el JWT y establecerla en el contexto de seguridad
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     username, null, authorities);
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-            // Establecer la autenticación en el contexto de seguridad
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 

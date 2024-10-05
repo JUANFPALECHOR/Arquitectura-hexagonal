@@ -29,7 +29,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<UsuarioResponse> crearUsuario(@RequestBody UsuarioRequest usuarioRequest) {
         // Mapear DTO de solicitud a modelo de dominio
         Usuario usuario = usuarioMapper.toDomain(usuarioRequest);
