@@ -15,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import static com.pragma.usuarios.configuration.Constants.*;
 
@@ -32,6 +35,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors()
+                .and()
                 .csrf().disable()
 
                 //autorizaciones
@@ -80,6 +85,22 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedOrigin("http://localhost:4500"); // Asegúrate de especificar la URL de tu frontend
+        config.addAllowedHeader("*"); // Permitir todos los encabezados
+        config.addAllowedMethod("*"); // Permitir todos los métodos (GET, POST, PUT, DELETE, etc.)
+        config.setAllowCredentials(true); // Permitir el uso de credenciales
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config); // Aplicar a todas las rutas
+
+        return new CorsFilter(source);
+    }
+
+
 }
 
 

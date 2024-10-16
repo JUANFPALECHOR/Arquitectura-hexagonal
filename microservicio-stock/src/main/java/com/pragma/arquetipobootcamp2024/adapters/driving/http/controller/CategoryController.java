@@ -8,7 +8,6 @@ import com.pragma.arquetipobootcamp2024.domain.model.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /*
@@ -21,8 +20,6 @@ Returns an HTTP response with the results, in a way that the client can understa
 
 
  */
-
-
 
 @RestController // Indicates that this class is a REST controller
 @RequestMapping("/api/categories") // Defines the base URL for this controller
@@ -42,11 +39,11 @@ public class CategoryController {
 
 
     @PostMapping// this method will handle HTTP requests of type POST
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<String> createCategory(@RequestBody CategoryRequest categoryRequest) {
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Void> createCategory(@RequestBody CategoryRequest categoryRequest) {
         Category category = categoryEntityMapper.toDomain(categoryRequest);
         categoryUseCase.createCategory(category);
-        return new ResponseEntity<>("Category created successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
